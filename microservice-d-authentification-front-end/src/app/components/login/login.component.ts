@@ -1,12 +1,13 @@
 // @ts-ignore
 
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient} from "@angular/common/http";
 import {UserService} from "../../services/user.service";
 import {AuthenticationService} from "../../services/authentication.service";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthenticationRequest} from "../../models/authentication-request";
 import {jwtDecode} from "jwt-decode";
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -17,14 +18,15 @@ import {jwtDecode} from "jwt-decode";
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent{
 
   authenticationRequestForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   })
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService, private userService : UserService,
+  ) {
   }
 
   formSubmitted: boolean = false;
@@ -33,7 +35,7 @@ export class LoginComponent {
   refrechToken = '';
 
   login() {
-    this.formSubmitted = true;
+    // this.formSubmitted = true;
 
     if (this.authenticationRequestForm.valid) {
       const authenticationRequest: AuthenticationRequest = {
@@ -47,7 +49,7 @@ export class LoginComponent {
 
           this.token = authResponse.token
           localStorage.setItem('token', this.token);
-          this.refrechToken = authResponse.refreshToken;
+          this.refrechToken = authResponse.refrechToken;
           localStorage.setItem('refrechToken', this.refrechToken);
           console.log("token : ", this.token);
           console.log("refrech token : ", this.refrechToken);
@@ -61,4 +63,7 @@ export class LoginComponent {
     }
 
   }
+
+
+
 }

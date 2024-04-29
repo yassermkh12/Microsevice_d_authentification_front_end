@@ -15,11 +15,11 @@ export class UserService {
   constructor(private http : HttpClient) { }
 
   findAll(): Observable<Array<User>> {
-    return this.http.get<Array<User>>( this.API +'users/');
+    return this.http.get<Array<User>>( this.API +'users');
   }
 
   save(user: User): Observable<User> {
-    return this.http.post<User>(this.API + 'save-user/', user);
+    return this.http.post<User>(this.API + 'save-user', user);
   }
 
   // // delete(user: User) {
@@ -31,7 +31,7 @@ export class UserService {
   // // }
 
   findById(id: number): Observable<User> {
-    return this.http.get<User>(this.API + 'by-id/' + id);
+    return this.http.get<User>(this.API + 'by-id' + id);
   }
 
 
