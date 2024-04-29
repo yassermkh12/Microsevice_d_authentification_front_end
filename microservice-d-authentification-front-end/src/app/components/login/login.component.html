@@ -1,1 +1,22 @@
-<p>login works!</p>
+<div class="inscription">
+  <h3 class="display-2" class="text-center">Login</h3>
+  <form [formGroup]="authenticationRequestForm" (ngSubmit)="login()">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Username</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username"  formControlName="username" >
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput2" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleFormControlInput2" placeholder="Password"  formControlName="password">
+    </div>
+    <p>Don't have account? <a routerLink="login">Register</a></p>
+
+    <div class="text-center mt-3">
+      <button type="submit" class="btn btn-outline-success" >
+        login
+        <i class="bi bi-person-fill-add"></i>
+      </button>
+    </div>
+  </form>
+</div>
