@@ -1,5 +1,5 @@
 import {ApplicationConfig} from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {provideRouter, RouterLink, RouterModule} from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -9,6 +9,7 @@ import {AuthenticationService} from "./services/authentication.service";
 import {UserService} from "./services/user.service";
 import {RoleService} from "./services/role.service";
 import {authenticationInterceptor} from "./interceptors/authentication.interceptor";
+import {Router} from "express";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +19,7 @@ export const appConfig: ApplicationConfig = {
     AuthenticationService,
     UserService,
     RoleService,
+    RouterLink,
+    RouterModule
   ],
 };

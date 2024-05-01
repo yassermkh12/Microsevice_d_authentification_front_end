@@ -1,5 +1,3 @@
-// @ts-ignore
-
 import {Component, OnInit} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClient} from "@angular/common/http";
 import {UserService} from "../../services/user.service";
@@ -8,6 +6,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {AuthenticationRequest} from "../../models/authentication-request";
 import {jwtDecode} from "jwt-decode";
 import { User } from '../../models/user';
+import {Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -25,7 +24,9 @@ export class LoginComponent{
     password: new FormControl('', [Validators.required])
   })
 
-  constructor(private authenticationService: AuthenticationService, private userService : UserService,
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router : Router,
   ) {
   }
 
@@ -58,6 +59,8 @@ export class LoginComponent{
           console.log("decode token : ", decodedToken)
           const username = decodedToken.sub
           console.log("username : ", username)
+
+          this.router.navigate(['/logout'])
         }
       )
     }

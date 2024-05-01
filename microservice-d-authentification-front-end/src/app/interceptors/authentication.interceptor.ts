@@ -9,9 +9,9 @@ export const authenticationInterceptor: HttpInterceptorFn = (request, next) => {
   console.log("token dans l intercepteur : ", token)
   console.log("refrechtoken dans l intercepteur : ", refrechToken)
 
-  if(token !== null){
+  if(token !== null) {
     let clone = request.clone({
-      setHeaders:{
+      setHeaders: {
         Authorization: `Bearer ${token}`
       }
     })
@@ -40,6 +40,6 @@ export const authenticationInterceptor: HttpInterceptorFn = (request, next) => {
 
   console.log("request : ", request);
 
-  return next.handle(request);
+  return next(request);
 
 };
