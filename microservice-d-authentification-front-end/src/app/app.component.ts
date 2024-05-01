@@ -13,11 +13,21 @@ import {AuthenticationService} from "./services/authentication.service";
 import {LoginComponent} from "./components/login/login.component";
 import {CommonModule} from "@angular/common";
 import {LogoutComponent} from "./components/logout/logout.component";
+import {RegisterComponent} from "./components/register/register.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule,RouterOutlet, HttpClientModule, LoginComponent, RouterLink, LogoutComponent, RouterModule],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HttpClientModule,
+    LoginComponent,
+    RouterLink,
+    LogoutComponent,
+    RouterModule,
+    RegisterComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 

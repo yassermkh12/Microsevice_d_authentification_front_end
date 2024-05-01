@@ -36,7 +36,7 @@ export class LoginComponent{
   refrechToken = '';
 
   login() {
-    // this.formSubmitted = true;
+    this.formSubmitted = true;
 
     if (this.authenticationRequestForm.valid) {
       const authenticationRequest: AuthenticationRequest = {

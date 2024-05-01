@@ -1,1 +1,21 @@
-<p>register works!</p>
+<div class="inscription">
+  <h3 class="display-2" class="text-center">Register</h3>
+  <form [formGroup]="registerRequestForm" (ngSubmit)="register()">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Username</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username"  formControlName="username" >
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput2" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleFormControlInput2" placeholder="Password"  formControlName="password">
+    </div>
+
+    <div class="text-center mt-3">
+      <button type="submit" class="btn btn-outline-success" >
+        register
+        <i class="bi bi-person-fill-add"></i>
+      </button>
+    </div>
+  </form>
+</div>
