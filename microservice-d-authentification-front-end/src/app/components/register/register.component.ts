@@ -50,10 +50,10 @@ export class RegisterComponent {
           this.refrechToken = authResponse.refrechToken;
           localStorage.setItem('refrechToken', this.refrechToken);
 
-          if(authResponse.usernameResponse != null){
+          // if(authResponse.usernameResponse != null){
             this.usernameResponse = authResponse.usernameResponse;
             console.log(this.usernameResponse);
-          }
+          // }
 
           console.log("token : ", this.token);
           console.log("refrech token : ", this.refrechToken);
@@ -64,6 +64,10 @@ export class RegisterComponent {
           console.log("username : ", username)
 
           this.router.navigate(['/logout'])
+        },
+        error => {
+          console.error('Erreur capturée dans le composant :', error);
+          alert(error.message);
         }
       )
 

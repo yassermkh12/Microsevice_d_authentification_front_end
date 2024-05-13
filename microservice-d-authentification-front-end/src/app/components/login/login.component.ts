@@ -61,6 +61,10 @@ export class LoginComponent{
           console.log("username : ", username)
 
           this.router.navigate(['/logout'])
+        },
+        error => {
+          console.error('Erreur capturée dans le composant :', error);
+          alert(error.message);
         }
       )
     }

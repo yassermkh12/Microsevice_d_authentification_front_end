@@ -49,6 +49,7 @@ export class LogoutComponent {
 
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('refrechToken')
     console.log("oui")
     this.router.navigate(["/login"]);
   }

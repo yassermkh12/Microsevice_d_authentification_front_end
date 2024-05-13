@@ -10,10 +10,9 @@ export const auhtenticationGuard: CanActivateFn = (route, state) => {
   const token = localStorage.getItem('token');
   const refrechToken = localStorage.getItem('refrechToken');
 
-  if((token != null || refrechToken != null) ){
-    return true;
-  }else{
+  if((token == null || refrechToken == null) ){
     router.navigate(['/login']);
     return false;
   }
+  return true;
 }

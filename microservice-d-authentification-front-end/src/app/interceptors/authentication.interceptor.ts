@@ -24,22 +24,25 @@ export const authenticationInterceptor: HttpInterceptorFn = (request, next) => {
 
           console.log("refrechToken1 : ", refrechToken1);
 
-          let cloneRefech = request.clone({
-            setHeaders:{
-              Authorization: `Bearer ${refrechToken1}`
-            }
-          })
-          console.log("clone refrech dans l intercepteur",cloneRefech)
-          return next(cloneRefech);
+          if(refrechToken1 !== null) {
+            let cloneRefech = request.clone({
+              setHeaders: {
+                Authorization: `Bearer ${refrechToken1}`
+              }
+            })
+            console.log("clone refrech dans l intercepteur", cloneRefech)
+            return next(cloneRefech);
+          }
         }
 
         return throwError('oui')
       })
     )
+  }else{
+    return next(request);
   }
 
-  console.log("request : ", request);
+  // console.log("request : ", request);
 
-  return next(request);
 
 };
