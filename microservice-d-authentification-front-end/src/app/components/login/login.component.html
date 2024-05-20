@@ -12,6 +12,8 @@
     </div>
     <p>Don't have account? <a href="/register">Register</a></p>
 
+    <a id="openEmailModal" href="/login" data-bs-toggle="modal" data-bs-target="#exampleModal" >forgot password?</a>
+
     <div class="text-center mt-3">
       <button type="submit" class="btn btn-outline-success" >
         login
@@ -19,4 +21,75 @@
       </button>
     </div>
   </form>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">email</h1>
+        <button id="btn-close1" type="button" class="btn-close" (click)="closeEmailModal('exampleModal','btn-close1')" aria-label="Close"></button>
+      </div>
+      <form #forgotPasswordForm="ngForm" (ngSubmit)="forgotPassword(forgotPasswordForm)">
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="exampleFormControlInput3" class="col-form-label">email:</label>
+            <input type="text" class="form-control" name="email" ngModel required email #email="ngModel" placeholder="Enter your email"  id="exampleFormControlInput3"/>
+<!--            <div *ngIf="formSubmitted">-->
+<!--              hhhhhhhhhhhhhhh-->
+<!--            </div>-->
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="closeEmailModal('exampleModal','btn-close2')" class="btn btn-secondary" id="btn-close2" type="button">Close</button>
+        <button id="btn-to-verify-code" (click)="forgotPassword(forgotPasswordForm)" type="button" class="btn btn-primary" >Send message</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">code</h1>
+        <button id="btn-close3" type="button" class="btn-close" (click)="closeEmailModal('exampleModalToggle','btn-close3')" aria-label="Close"></button>
+      </div>
+      <form #verifyCodeForm="ngForm"  (ngSubmit)="verifyCode(verifyCodeForm)">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="exampleFormControlInput4" class="col-form-label">code:</label>
+            <input type="text" class="form-control" name="code" ngModel required code #code="ngModel" placeholder="Enter your code"  id="exampleFormControlInput4"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-close4" type="button" class="btn btn-secondary" (click)="closeEmailModal('exampleModalToggle','btn-close4')">Close</button>
+          <button type="submit" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Send message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Hide this modal and show the first with the button below.
+      </div>
+      <div class="modal-footer">
+
+
+        <button class="btn btn-primary" data-bs-target="#exampleModal" data-bs-toggle="modal">Back to first</button>
+      </div>
+    </div>
+  </div>
 </div>

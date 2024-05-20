@@ -10,6 +10,7 @@ import {UserService} from "./services/user.service";
 import {RoleService} from "./services/role.service";
 import {authenticationInterceptor} from "./interceptors/authentication.interceptor";
 import {Router} from "express";
+import {FormsModule} from "@angular/forms";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     UserService,
     RoleService,
     RouterLink,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
 };

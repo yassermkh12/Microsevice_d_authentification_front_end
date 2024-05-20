@@ -1,4 +1,4 @@
-<nav class="navbar bg-primary navbar-expand-lg bg-body-tertiary">
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,8 +54,8 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
               {{username}}
             </a>
-            <ul class="dropdown-menu dropdown-menu-lg-end">
-              <li><a class="dropdown-item" (click)="logout()"   >Logout</a></li>
+            <ul class="dropdown-menu dropdown-menu-lg-end" >
+              <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
               <li><a class="dropdown-item" href="#">profile</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -73,17 +73,16 @@
   <tr>
     <th scope="col">#</th>
     <th scope="col">Username</th>
-    <th scope="col">Email</th>
     <th scope="col">Role</th>
-
   </tr>
   </thead>
   <tbody class="table-group-divider" *ngFor="let user of users" >
   <tr>
     <th scope="row">{{user.id}}</th>
-    <td>{{user.username}}</td>
-    <td>{{user.email}}</td>
-    <td *ngFor="let role of user.roles">{{role.name}}</td>
+    <th scope="row">{{user.username}}</th>
+    <th scope="colgroup" *ngFor="let role of user.roles">
+      <li><a>{{role.name}}</a></li>
+    </th>
   </tr>
   </tbody>
 </table>
