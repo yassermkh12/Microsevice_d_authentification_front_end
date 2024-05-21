@@ -76,7 +76,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel4">password</h1>
         <button id="btn-close5" type="button" class="btn-close" (click)="closeEmailModal('exampleModalToggle2','btn-close5')" aria-label="Close"></button>
       </div>
-      <form #verifyCodeForm="ngForm"  (ngSubmit)="resetPassword(verifyCodeForm)">
+      <form #resetPasswordForm="ngForm"  (ngSubmit)="resetPassword(resetPasswordForm)">
         <div class="modal-body">
           <div class="mb-3">
             <label for="exampleFormControlInput5" class="col-form-label">password:</label>
