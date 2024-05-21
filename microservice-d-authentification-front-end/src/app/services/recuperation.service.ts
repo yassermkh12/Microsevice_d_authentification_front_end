@@ -39,4 +39,17 @@ export class RecuperationService {
         )
       )
   }
+
+  resetPassword(email: string, password: string): Observable<void> {
+    return this.http.get<void>(`http://localhost:8080/api/recuperation/update-password-by-email/${email}/${password}`)
+      .pipe(
+        catchError(
+          (error:HttpErrorResponse) =>{
+
+            console.log("error", error);
+            return throwError(error.error);
+          }
+        )
+      )
+  }
 }

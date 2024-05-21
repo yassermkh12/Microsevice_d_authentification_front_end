@@ -23,7 +23,7 @@
   </form>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -35,21 +35,18 @@
           <div class="mb-3">
             <label for="exampleFormControlInput3" class="col-form-label">email:</label>
             <input type="text" class="form-control" name="email" ngModel required email #email="ngModel" placeholder="Enter your email"  id="exampleFormControlInput3"/>
-<!--            <div *ngIf="formSubmitted">-->
-<!--              hhhhhhhhhhhhhhh-->
-<!--            </div>-->
           </div>
       </div>
       <div class="modal-footer">
         <button (click)="closeEmailModal('exampleModal','btn-close2')" class="btn btn-secondary" id="btn-close2" type="button">Close</button>
-        <button id="btn-to-verify-code" (click)="forgotPassword(forgotPasswordForm)" type="button" class="btn btn-primary" >Send message</button>
+        <button id="btn-to-verify-code" (click)="forgotPassword(forgotPasswordForm)" type="button" class="btn btn-primary" >Send email</button>
       </div>
       </form>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -65,7 +62,30 @@
         </div>
         <div class="modal-footer">
           <button id="btn-close4" type="button" class="btn btn-secondary" (click)="closeEmailModal('exampleModalToggle','btn-close4')">Close</button>
-          <button type="submit" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Send message</button>
+          <button id="btn-to-reset-password" type="submit" class="btn btn-primary">Send code</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel4">password</h1>
+        <button id="btn-close5" type="button" class="btn-close" (click)="closeEmailModal('exampleModalToggle2','btn-close5')" aria-label="Close"></button>
+      </div>
+      <form #verifyCodeForm="ngForm"  (ngSubmit)="resetPassword(verifyCodeForm)">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="exampleFormControlInput5" class="col-form-label">password:</label>
+            <input type="text" class="form-control" name="password" ngModel required password #password="ngModel" placeholder="Enter your password"  id="exampleFormControlInput5"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-close6" type="button" class="btn btn-secondary" (click)="closeEmailModal('exampleModalToggle','btn-close6')">Close</button>
+          <button id="btn-to-message" type="submit" class="btn btn-primary">Send password</button>
         </div>
       </form>
     </div>
@@ -73,22 +93,36 @@
 </div>
 
 
-
-
-<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="passwordValid" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel1">Password valid</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Hide this modal and show the first with the button below.
+        {{validPassword}}
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-        <button class="btn btn-primary" data-bs-target="#exampleModal" data-bs-toggle="modal">Back to first</button>
+<div class="modal fade" id="passwordNotValid" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel2">Password valid</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{errorPassword}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
