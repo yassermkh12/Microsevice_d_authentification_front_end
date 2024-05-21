@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {AuthenticationRequest} from "../../models/authentication-request";
 import {jwtDecode} from "jwt-decode";
 import {PaginatorModule} from "primeng/paginator";
+import {RegisterRequest} from "../../models/register-request";
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,8 @@ import {PaginatorModule} from "primeng/paginator";
 export class RegisterComponent {
   registerRequestForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required])
   });
 
   constructor(
@@ -38,9 +40,10 @@ export class RegisterComponent {
     this.formSubmitted = true;
 
     if (this.registerRequestForm.valid) {
-      const registerRequest: AuthenticationRequest = {
+      const registerRequest: RegisterRequest = {
         username: this.registerRequestForm.value.username,
-        password: this.registerRequestForm.value.password
+        password: this.registerRequestForm.value.password,
+        email: this.registerRequestForm.value.email
       }
 
       this.autheticationService.register(registerRequest).subscribe(
@@ -49,11 +52,6 @@ export class RegisterComponent {
           localStorage.setItem('token', this.token);
           this.refrechToken = authResponse.refrechToken;
           localStorage.setItem('refrechToken', this.refrechToken);
-
-          // if(authResponse.usernameResponse != null){
-            this.usernameResponse = authResponse.usernameResponse;
-            console.log(this.usernameResponse);
-          // }
 
           console.log("token : ", this.token);
           console.log("refrech token : ", this.refrechToken);

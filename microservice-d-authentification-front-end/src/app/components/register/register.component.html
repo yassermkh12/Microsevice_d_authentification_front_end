@@ -1,5 +1,5 @@
 <div class="inscription">
-  <h3 class="display-2" class="text-center">Register</h3>
+  <h3 class="display-2 text-center">Register</h3>
   <form [formGroup]="registerRequestForm" (ngSubmit)="register()">
     <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">Username</label>
@@ -7,8 +7,13 @@
     </div>
 
     <div class="mb-3">
-      <label for="exampleFormControlInput2" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleFormControlInput2" placeholder="Password"  formControlName="password">
+      <label for="exampleFormControlInput2" class="form-label">email</label>
+      <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="Email"  formControlName="email" >
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput3" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleFormControlInput3" placeholder="Password"  formControlName="password">
     </div>
 
     <div class="text-center mt-3">
