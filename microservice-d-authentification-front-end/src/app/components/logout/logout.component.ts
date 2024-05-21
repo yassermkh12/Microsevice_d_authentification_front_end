@@ -3,7 +3,7 @@ import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
 import {jwtDecode} from "jwt-decode";
 import {routes} from "../../app.routes";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 import {RouterLink, RouterOutlet} from "@angular/router";
 
@@ -13,7 +13,8 @@ import {RouterLink, RouterOutlet} from "@angular/router";
   imports: [
     NgForOf,
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.css'
@@ -53,5 +54,11 @@ export class LogoutComponent {
     console.log("oui")
     this.router.navigate(["/login"]);
   }
+
+  profile(){
+
+  }
+
+
 
 }
