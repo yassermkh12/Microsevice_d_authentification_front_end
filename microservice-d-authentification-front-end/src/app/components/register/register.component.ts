@@ -34,41 +34,62 @@ export class RegisterComponent {
 
   token = '';
   refrechToken = '';
-  usernameResponse ='';
+  errorRegister = '';
+  registerBtn : any;
+  iRegister = 0;
+  jRegister = 0;
 
-  register(){
-    this.formSubmitted = true;
+  register() {
+    if (this.jRegister < 1) {
+      this.jRegister = this.jRegister + 1;
+      this.formSubmitted = true;
 
-    if (this.registerRequestForm.valid) {
-      const registerRequest: RegisterRequest = {
-        username: this.registerRequestForm.value.username,
-        password: this.registerRequestForm.value.password,
-        email: this.registerRequestForm.value.email
-      }
-
-      this.autheticationService.register(registerRequest).subscribe(
-        authResponse => {
-          this.token = authResponse.token
-          localStorage.setItem('token', this.token);
-          this.refrechToken = authResponse.refrechToken;
-          localStorage.setItem('refrechToken', this.refrechToken);
-
-          console.log("token : ", this.token);
-          console.log("refrech token : ", this.refrechToken);
-
-          const decodedToken = jwtDecode(this.token);
-          console.log("decode token : ", decodedToken)
-          const username = decodedToken.sub
-          console.log("username : ", username)
-
-          this.router.navigate(['/logout'])
-        },
-        error => {
-          console.error('Erreur capturée dans le composant :', error);
-          alert(error.message);
+      if (this.registerRequestForm.valid) {
+        const registerRequest: RegisterRequest = {
+          username: this.registerRequestForm.value.username,
+          password: this.registerRequestForm.value.password,
+          email: this.registerRequestForm.value.email
         }
-      )
 
+        this.autheticationService.register(registerRequest).subscribe(
+          authResponse => {
+            this.token = authResponse.token
+            localStorage.setItem('token', this.token);
+            this.refrechToken = authResponse.refrechToken;
+            localStorage.setItem('refrechToken', this.refrechToken);
+            console.log("token : ", this.token);
+            console.log("refrech token : ", this.refrechToken);
+
+            const decodedToken = jwtDecode(this.token);
+            console.log("decode token : ", decodedToken)
+            const username = decodedToken.sub
+            console.log("username : ", username)
+
+            this.router.navigate(['/logout'])
+          },
+          error => {
+            console.error('Erreur capturée dans le composant :', error);
+            this.errorRegister = error.message;
+            this.jRegister = 0;
+
+            this.registerBtn = document.getElementById("btn-register");
+            if (this.registerBtn) {
+              console.log(this.registerBtn);
+              this.registerBtn.setAttribute("data-bs-toggle", "modal");
+              this.registerBtn.setAttribute("data-bs-target", "#registerError");
+              if (this.iRegister < 1){
+                this.iRegister = this.iRegister + 1;
+                this.registerBtn.click();
+              }else {
+                this.registerBtn.removeAttribute("data-bs-toggle");
+                this.registerBtn.removeAttribute("data-bs-target");
+                this.iRegister = 0;
+              }
+            }
+          }
+        )
+
+      }
     }
   }
 }

@@ -39,8 +39,10 @@ export class LoginComponent{
   token = '';
   refrechToken = '';
   email: string = '';
-
-  isModalHidden = false;
+  errorLogin: string = '';
+  loginBtn:any;
+  iLogin:number = 0;
+  jLogin : number = 0;
 
   i = 0;
   j = 0;
@@ -85,39 +87,55 @@ export class LoginComponent{
 
 
   login() {
-    this.formSubmitted = true;
+    if (this.jLogin < 1) {
+      this.jLogin = this.jLogin + 1;
+      this.formSubmitted = true;
 
-    if (this.authenticationRequestForm.valid) {
-      const authenticationRequest: AuthenticationRequest = {
-        username: this.authenticationRequestForm.value.username,
-        password: this.authenticationRequestForm.value.password
-      }
-
-
-      this.authenticationService.authenticate(authenticationRequest).subscribe(
-        authResponse => {
-
-          this.token = authResponse.token
-          localStorage.setItem('token', this.token);
-          this.refrechToken = authResponse.refrechToken;
-          localStorage.setItem('refrechToken', this.refrechToken);
-          console.log("token : ", this.token);
-          console.log("refrech token : ", this.refrechToken);
-
-          const decodedToken = jwtDecode(this.token);
-          console.log("decode token : ", decodedToken)
-          const username = decodedToken.sub
-          console.log("username : ", username)
-
-          this.router.navigate(['/logout'])
-        },
-        error => {
-          console.error('Erreur capturée dans le composant :', error);
-          alert(error.message);
+      if (this.authenticationRequestForm.valid) {
+        const authenticationRequest: AuthenticationRequest = {
+          username: this.authenticationRequestForm.value.username,
+          password: this.authenticationRequestForm.value.password
         }
-      )
-    }
 
+        this.authenticationService.authenticate(authenticationRequest).subscribe(
+          authResponse => {
+            this.token = authResponse.token
+            localStorage.setItem('token', this.token);
+            this.refrechToken = authResponse.refrechToken;
+            localStorage.setItem('refrechToken', this.refrechToken);
+            console.log("token : ", this.token);
+            console.log("refrech token : ", this.refrechToken);
+
+            const decodedToken = jwtDecode(this.token);
+            console.log("decode token : ", decodedToken)
+            const username = decodedToken.sub
+            console.log("username : ", username)
+
+            this.router.navigate(['/logout']);
+          },
+          error => {
+            console.error('Erreur capturée dans le composant :', error);
+            this.errorLogin = error.message;
+            this.jLogin = 0;
+
+            this.loginBtn = document.getElementById("btn-login");
+            if (this.loginBtn) {
+              console.log(this.loginBtn);
+              this.loginBtn.setAttribute("data-bs-toggle", "modal");
+              this.loginBtn.setAttribute("data-bs-target", "#loginError");
+              if (this.iLogin < 1){
+                this.iLogin = this.iLogin + 1;
+                this.loginBtn.click();
+              }else {
+                this.loginBtn.removeAttribute("data-bs-toggle");
+                this.loginBtn.removeAttribute("data-bs-target");
+                this.iLogin = 0;
+              }
+            }
+          }
+        )
+      }
+    }
   }
 
   forgotPassword(form:NgForm) {

@@ -17,10 +17,27 @@
     </div>
 
     <div class="text-center mt-3">
-      <button type="submit" class="btn btn-outline-success" >
+      <button id="btn-register" type="submit" class="btn btn-outline-success" >
         register
         <i class="bi bi-person-fill-add"></i>
       </button>
     </div>
   </form>
+</div>
+
+<div class="modal fade" id="registerError" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel3">Register failed</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{errorRegister}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
