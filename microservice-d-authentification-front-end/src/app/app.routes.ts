@@ -10,5 +10,7 @@ const loginComponent = LoginComponent;
 export const routes: Routes = [
   { path: 'login', component: loginComponent, canActivate:[loginGuard] },
   { path: 'register', component: RegisterComponent},
-  { path: 'logout',component: LogoutComponent, canActivate:[auhtenticationGuard]}
+  { path: 'logout',component: LogoutComponent, canActivate:[auhtenticationGuard]},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }
 ]
