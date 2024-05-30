@@ -60,6 +60,9 @@ export class LoginComponent{
   validPassword="";
   errorPassword="";
 
+
+  time1 : any;
+
   openEmailModal(){
       var openEmailModal = document.getElementById('openEmailModal');
       if (openEmailModal){
@@ -110,6 +113,18 @@ export class LoginComponent{
             console.log("decode token : ", decodedToken)
             const username = decodedToken.sub
             console.log("username : ", username)
+            const time : number | undefined  = decodedToken.exp
+            console.log("date d expiration : ", time)
+
+            this.time1 = time;
+
+            const currentTime: number = Math.floor(Date.now() / 1000);
+
+            if (currentTime >= this.time1) {
+              console.log("Le token est expiré");
+            } else {
+              console.log("Le token est encore valide");
+            }
 
             this.router.navigate(['/logout']);
           },
