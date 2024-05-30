@@ -31,8 +31,15 @@ export class UserService {
   // // }
 
   findById(id: number): Observable<User> {
-    return this.http.get<User>(this.API + 'by-id' + id);
+    return this.http.get<User>(this.API + 'by-id/' + id);
   }
 
+  findUserByEmail(email: string): Observable<User>{
+    return this.http.get<User>(this.API + 'find-by-email/' + email);
+  }
+
+  findUserByUsername(username : string | undefined): Observable<User>{
+    return this.http.get<User>(this.API + 'by-user-name/'+ username);
+  }
 
 }
