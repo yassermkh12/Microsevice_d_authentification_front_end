@@ -5,13 +5,14 @@ import {catchError, Observable, throwError} from "rxjs";
 import {RegisterRequest} from "../models/register-request";
 import {AuthenticationResponse} from "../models/authentication-response";
 import {AuthenticationRequest} from "../models/authentication-request";
+import { promises } from 'node:dns';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private API = "http://localhost:8080/api/auth/"
+  private API = "http://172.26.144.1:8080/api/auth/"
 
   constructor(private http : HttpClient) { }
 

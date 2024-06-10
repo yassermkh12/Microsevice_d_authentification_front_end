@@ -6,6 +6,7 @@ import {Route, Router} from "@angular/router";
 import {RecuperationService} from "../../services/recuperation.service";
 import {NgClass, NgIf} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators} from "@angular/forms";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ import {FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Valida
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent{
+export class LoginComponent implements OnInit{
 
   authenticationRequestForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -31,8 +32,16 @@ export class LoginComponent{
     private authenticationService: AuthenticationService,
     private router : Router,
     private recuperationService : RecuperationService,
+    private httpClient : HttpClient
   ) {
   }
+
+  ipAddress: string="";
+
+  ngOnInit(): void {
+    // this.loadIpAddress()
+  }
+  
 
   formSubmitted: boolean = false;
 
@@ -60,8 +69,16 @@ export class LoginComponent{
   validPassword="";
   errorPassword="";
 
-
   time1 : any;
+
+  loadIpAddress(){
+    this.httpClient.get('https://jsonip.com/').subscribe(
+      (reponse:any) =>{
+        this.ipAddress = reponse.id;
+        console.log(reponse)
+      }
+    )
+  }
 
   openEmailModal(){
       var openEmailModal = document.getElementById('openEmailModal');

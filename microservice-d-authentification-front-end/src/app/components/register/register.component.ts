@@ -6,13 +6,15 @@ import {AuthenticationRequest} from "../../models/authentication-request";
 import {jwtDecode} from "jwt-decode";
 import {PaginatorModule} from "primeng/paginator";
 import {RegisterRequest} from "../../models/register-request";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
     PaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIf
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'

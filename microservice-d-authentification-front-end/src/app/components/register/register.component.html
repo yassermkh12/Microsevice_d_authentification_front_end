@@ -3,7 +3,8 @@
   <form [formGroup]="registerRequestForm" (ngSubmit)="register()">
     <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">Username</label>
-      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username"  formControlName="username" >
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username"  formControlName="username">
+<!--      <div *ngIf="!formSubmitted && registerRequestForm">hhhhhhhhhhhhh</div>-->
     </div>
 
     <div class="mb-3">
