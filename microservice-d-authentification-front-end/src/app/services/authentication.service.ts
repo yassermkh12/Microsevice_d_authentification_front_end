@@ -12,7 +12,7 @@ import { promises } from 'node:dns';
 })
 export class AuthenticationService {
 
-  private API = "http://172.26.144.1:8080/api/auth/"
+  private API = "http://localhost:8080/api/auth/"
 
   constructor(private http : HttpClient) { }
 
