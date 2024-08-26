@@ -23,6 +23,8 @@ import {RecuperationSecurityService} from "../../services/recuperation-security.
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.css'
 })
+
+
 export class LogoutComponent {
 
   // isloggin : boolean = true;
@@ -57,13 +59,23 @@ export class LogoutComponent {
 
   token : any = localStorage.getItem('token');
 
-  decodedToken = jwtDecode(this.token);
+  decodedToken = jwtDecode<JwtPayload>(this.token);
   username:string| undefined = this.decodedToken.sub
+
+  roles : any = this.decodedToken.role.map(roleObj => roleObj.authority);
+
+  roleIndication : boolean = true;
 
   ngOnInit(): void {
     this.getUser();
     this.getUserByEmail();
+    console.log(this.decodedToken.role.map(roleObj => roleObj.authority))
+    if (this.roles.includes('USER')){
+      console.log("les roles sont exacte")
+    }
   }
+
+
 
   getUser(){
     this.userService.findAll().subscribe(
@@ -261,3 +273,11 @@ export class LogoutComponent {
 
 
 }
+interface JwtPayload {
+  role:{ authority: string }[]; // Assurez-vous que cela correspond à la structure de votre JWT
+  // Autres propriétés selon votre JWT
+   sub: string,
+  iat: number,
+  exp: number
+}
+

@@ -7,12 +7,12 @@ export const loginGuard: CanActivateFn = (route, state) => {
 
   const router = inject(Router);
 
-  // const token : String|null = localStorage.getItem('token');
-  // const refrechToken : String|null  = localStorage.getItem('refrechToken');
+  const token : String|null = localStorage.getItem('token');
+  const refrechToken : String|null  = localStorage.getItem('refrechToken');
 
-  // if((token != null || refrechToken != null) ){
-  //   router.navigate(['/logout']);
-  //   return false;
-  // }
+  if((token != null || refrechToken != null) ){
+    router.navigate(['/logout']);
+    return false;
+  }
   return true;
 };

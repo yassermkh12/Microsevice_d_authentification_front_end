@@ -4,7 +4,6 @@ import {Router} from "@angular/router";
 import {jwtDecode} from "jwt-decode";
 
 export const auhtenticationGuard: CanActivateFn = (route, state) => {
-  const isloggin : Boolean = true;
 
   const router = inject(Router);
 
