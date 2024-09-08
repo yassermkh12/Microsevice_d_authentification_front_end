@@ -1,35 +1,27 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {User} from "../../models/user";
-import {UserService} from "../../services/user.service";
-import {jwtDecode} from "jwt-decode";
-import {routes} from "../../app.routes";
-import {NgForOf, NgIf} from "@angular/common";
-import {Router} from "@angular/router";
-import {RouterLink, RouterOutlet} from "@angular/router";
-import {FormsModule, NgForm} from "@angular/forms";
-import {RecuperationService} from "../../services/recuperation.service";
-import {RecuperationSecurityService} from "../../services/recuperation-security.service";
-import { RoleService } from '../../services/role.service';
-import { NavbarComponent } from '../tools/navbar/navbar.component';
+import { Component } from '@angular/core';
+import { User } from '../../../models/user';
+import { RoleService } from '../../../services/role.service';
+import { UserService } from '../../../services/user.service';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { RecuperationSecurityService } from '../../../services/recuperation-security.service';
+import { jwtDecode } from 'jwt-decode';
+import { FormsModule, NgForm } from '@angular/forms';
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-logout',
+  selector: 'app-navbar',
   standalone: true,
   imports: [
     NgForOf,
     RouterOutlet,
     RouterLink,
     NgIf,
-    FormsModule,
-    NavbarComponent
+    FormsModule
   ],
-  templateUrl: './logout.component.html',
-  styleUrl: './logout.component.css'
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css'
 })
-
-
-export class LogoutComponent implements OnInit{
-
+export class NavbarComponent {
   formSubmitted: boolean = false;
 
   users : User[] = [];
@@ -65,21 +57,27 @@ export class LogoutComponent implements OnInit{
   decodedToken = jwtDecode<JwtPayload>(this.token);
   username:string| undefined = this.decodedToken.sub
 
-  roles : any = this.decodedToken.role.map(roleObj => roleObj.authority);
+  rolesToken : any = this.decodedToken.role.map(roleObj => roleObj.authority);
 
   roleIndication : boolean = true;
 
   ngOnInit(): void {
     // this.getRole();
-    this.logoutAuto();
     this.getUser();
     this.getUserByEmail();
-    // console.log(this.decodedToken.role.map(roleObj => roleObj.authority))
-    // if (this.roles.includes('USER')){
-    //   console.log("les roles sont exacte")
-    // }
+    this.roleAuthorisation();
   }
 
+
+  roleAuthorisation(){
+    if (this.rolesToken.includes('ADMIN')){
+      console.log("les roles sont exacte (ADMIN)")
+      this.roleIndication = true;
+    } else{
+      console.log("les roles ne sont pas exacte !!!! (PAS D ADMIN)");
+      this.roleIndication = false;
+    }
+  }
 
   getRole(){
     this.roleService.findAll().subscribe(
@@ -115,25 +113,9 @@ export class LogoutComponent implements OnInit{
 
   logout(){
     localStorage.removeItem('token');
-    localStorage.removeItem('refrechToken');
+    localStorage.removeItem('refrechToken')
     console.log("oui")
     this.router.navigate(["/login"]);
-  }
-
-  logoutAuto(){
-    const decodedToken = jwtDecode(this.token);
-    const time : any = decodedToken.exp
-    console.log("time d expiration ", time);
-
-    const currentTime: number = Math.floor(Date.now() / 1000);
-    console.log("current time", currentTime);
-
-    if(currentTime >= time){
-      localStorage.removeItem('token');
-      localStorage.removeItem('refrechToken');
-      console.log("oui")
-      this.router.navigate(["/login"]);
-    }
   }
 
   profile(){
@@ -299,7 +281,6 @@ export class LogoutComponent implements OnInit{
 
 
 
-
 }
 interface JwtPayload {
   role:{ authority: string }[]; // Assurez-vous que cela correspond à la structure de votre JWT
@@ -308,4 +289,3 @@ interface JwtPayload {
   iat: number,
   exp: number
 }
-

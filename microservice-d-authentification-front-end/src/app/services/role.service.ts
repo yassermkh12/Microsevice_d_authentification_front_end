@@ -14,15 +14,19 @@ export class RoleService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Array<Role>> {
-    return this.http.get<Array<Role>>( this.API +'roles/');
+    return this.http.get<Array<Role>>( this.API +'roles');
   }
 
   save(role: Role): Observable<Role> {
     return this.http.post<Role>(this.API + 'save-role/', role);
   }
 
-  findById(id: number): Observable<User> {
-    return this.http.get<User>(this.API + 'by-id/' + id);
+  findById(id: number): Observable<Role> {
+    return this.http.get<Role>(this.API + 'by-id/' + id);
+  }
+
+  update(id: number, role: Role): Observable<Role>{
+    return this.http.put<Role>(this.API + 'update-role/' + id, role)
   }
 
   delete(id: number) {

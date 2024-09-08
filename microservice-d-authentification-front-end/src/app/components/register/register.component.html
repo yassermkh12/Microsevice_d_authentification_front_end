@@ -1,6 +1,20 @@
 <div class="inscription">
   <h3 class="display-2 text-center">Register</h3>
-  <form [formGroup]="registerRequestForm" (ngSubmit)="register()">
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="isEmploye" [value]="true">
+    <label class="form-check-label" for="flexRadioDefault1">
+      Employe
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" [(ngModel)]="isEmploye" [value]="false">
+    <label class="form-check-label" for="flexRadioDefault2">
+      Etudiant
+    </label>
+  </div>
+
+  <form [formGroup]="registerRequestEmployeForm" (ngSubmit)="registerEmploye()" *ngIf ="isEmploye">
     <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">Username</label>
       <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username"  formControlName="username">
@@ -17,6 +31,40 @@
       <input type="password" class="form-control" id="exampleFormControlInput3" placeholder="Password"  formControlName="password">
     </div>
 
+    <div class="mb-3">
+      <label for="exampleFormControlInput8" class="form-label">major</label>
+      <input type="text" class="form-control" id="exampleFormControlInput8" placeholder="major"  formControlName="major" >
+    </div>
+
+    <div class="text-center mt-3">
+      <button id="btn-register" type="submit" class="btn btn-outline-success" >
+        register
+        <i class="bi bi-person-fill-add"></i>
+      </button>
+    </div>
+  </form>
+
+  <form [formGroup]="registerRequestForm" (ngSubmit)="register()" *ngIf="!isEmploye">
+    <div class="mb-3">
+      <label for="exampleFormControlInput4" class="form-label">Username</label>
+      <input type="text" class="form-control" id="exampleFormControlInput4" placeholder="Username"  formControlName="username">
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput5" class="form-label">email</label>
+      <input type="email" class="form-control" id="exampleFormControlInput5" placeholder="Email"  formControlName="email" >
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput6" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleFormControlInput6" placeholder="Password"  formControlName="password">
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput7" class="form-label">departement</label>
+      <input type="departement" class="form-control" id="exampleFormControlInput7" placeholder="departement"  formControlName="email" >
+    </div>
+  
     <div class="text-center mt-3">
       <button id="btn-register" type="submit" class="btn btn-outline-success" >
         register

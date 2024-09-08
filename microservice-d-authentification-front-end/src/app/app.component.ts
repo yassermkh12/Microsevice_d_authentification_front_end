@@ -14,6 +14,8 @@ import {LoginComponent} from "./components/login/login.component";
 import {CommonModule} from "@angular/common";
 import {LogoutComponent} from "./components/logout/logout.component";
 import {RegisterComponent} from "./components/register/register.component";
+import { GetRoleComponent } from './components/role/get-role/get-role.component';
+import { NavbarComponent } from './components/tools/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +28,9 @@ import {RegisterComponent} from "./components/register/register.component";
     RouterLink,
     LogoutComponent,
     RouterModule,
-    RegisterComponent
+    RegisterComponent,
+    GetRoleComponent,
+    NavbarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

@@ -7,6 +7,7 @@ import {jwtDecode} from "jwt-decode";
 import {PaginatorModule} from "primeng/paginator";
 import {RegisterRequest} from "../../models/register-request";
 import {NgIf} from "@angular/common";
+import { RegisterRequestEmploye } from '../../models/register-request-employe';
 
 @Component({
   selector: 'app-register',
@@ -20,17 +21,34 @@ import {NgIf} from "@angular/common";
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+
   registerRequestForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required])
   });
 
+  registerRequestEmployeForm: FormGroup = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
+    major: new FormControl('', [Validators.required])
+  });
+
+  registerRequestEtudiantForm: FormGroup = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
+    departement: new FormControl('', [Validators.required])
+  });  
+
   constructor(
     private autheticationService: AuthenticationService,
     private router : Router
   ) {
   }
+
+  isEmploye : boolean = true;
 
   formSubmitted: boolean = false;
 
@@ -40,6 +58,38 @@ export class RegisterComponent {
   registerBtn : any;
   iRegister = 0;
   jRegister = 0;
+
+  registerEmploye(){
+    if (this.registerRequestEmployeForm.valid){
+      const registerRequestEmploye : RegisterRequestEmploye = {
+        username : this.registerRequestEmployeForm.value.username,
+        password : this.registerRequestEmployeForm.value.password,
+        email : this.registerRequestEmployeForm.value.email,
+        major : this.registerRequestEmployeForm.value.major
+      }
+      
+      this.autheticationService.registerEmploye(registerRequestEmploye).subscribe(
+        authResponse =>{
+          this.token = authResponse.token
+          localStorage.setItem('token', this.token);
+          this.refrechToken = authResponse.refrechToken;
+          localStorage.setItem('refrechToken', this.refrechToken);
+          console.log("token : ", this.token);
+          console.log("refrech token : ", this.refrechToken);
+
+          const decodedToken = jwtDecode(this.token);
+          console.log("decode token : ", decodedToken)
+          const username = decodedToken.sub
+          console.log("username : ", username)
+
+          this.router.navigate(['/logout'])
+        },
+        error =>{
+          console.error('Erreur capturée dans le composant :', error);
+        }
+      )
+    }
+  }
 
   register() {
     if (this.jRegister < 1) {

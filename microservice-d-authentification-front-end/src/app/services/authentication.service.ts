@@ -6,6 +6,9 @@ import {RegisterRequest} from "../models/register-request";
 import {AuthenticationResponse} from "../models/authentication-response";
 import {AuthenticationRequest} from "../models/authentication-request";
 import { promises } from 'node:dns';
+import { RegisterRequestEmploye } from '../models/register-request-employe';
+import { error } from 'node:console';
+import { RegisterRequestEtudiant } from '../models/register-request-etudiant';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +30,30 @@ export class AuthenticationService {
           }
         )
       )
+  }
+
+  registerEmploye(registerRequestEmploye: RegisterRequestEmploye):Observable<AuthenticationResponse>{
+    return this.http.post<AuthenticationResponse>(this.API + 'register-employe',registerRequestEmploye)
+    .pipe(
+      catchError(
+        (error:HttpErrorResponse) => {
+          console.log("error", error);
+          return throwError(error.error)
+        }
+      )
+    )
+  }
+
+  registerEtudiant(registerRequestEtudiant: RegisterRequestEtudiant):Observable<AuthenticationResponse>{
+    return this.http.post<AuthenticationResponse>(this.API + 'register-etudiant',registerRequestEtudiant)
+    .pipe(
+      catchError(
+        (error:HttpErrorResponse) => {
+          console.log("error", error);
+          return throwError(error.error)
+        }
+      )
+    )
   }
 
   authenticate(authenticationRequest: AuthenticationRequest): Observable<AuthenticationResponse> {
